@@ -14,11 +14,10 @@ sast_report:
   stage: report
   image: registry.code.wm.edu/pcfens/sast-parser:latest
   script:
+  - ls -alhR
   - ./parse-sast.py *.json > report.html
   dependencies:
-  - bandit-sast
-  - eslint-sast
-  - secrets-sast
+  - sast
   artifacts:
     name: SAST Report
     expire_in: 1 week
