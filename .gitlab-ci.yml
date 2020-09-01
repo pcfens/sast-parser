@@ -12,7 +12,7 @@ include:
 
 sast_report:
   stage: report
-  image: registry.code.wm.edu/pcfens/sast-report:latest
+  image: registry.code.wm.edu/pcfens/sast-parser:latest
   script:
   - ./parse-sast.py *.json > report.html
   artifacts:
