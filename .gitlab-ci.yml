@@ -3,7 +3,11 @@ variables:
   DOCKER_BUILDKIT: 1
 
 stages:
+- test
 - build
+  
+include:
+  - template: Security/SAST.gitlab-ci.yml
 
 build_release:
   rules:
