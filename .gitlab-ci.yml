@@ -11,6 +11,7 @@ include:
   - template: Security/SAST.gitlab-ci.yml
 
 sast_report:
+  stage: report
   image: registry.code.wm.edu/pcfens/sast-report:latest
   script:
   - ./parse-sast.py *.json > report.html
