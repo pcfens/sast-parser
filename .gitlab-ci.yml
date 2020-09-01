@@ -4,10 +4,21 @@ variables:
 
 stages:
 - test
+- report
 - build
   
 include:
   - template: Security/SAST.gitlab-ci.yml
+
+sast_report:
+  image: registry.code.wm.edu/pcfens/sast-report:latest
+  script:
+  - ./parse-sast.py *.json > report.html
+  artifacts:
+    name: SAST Report
+    expire_in: 1 week
+    paths:
+    - report.html
 
 build_release:
   rules:
