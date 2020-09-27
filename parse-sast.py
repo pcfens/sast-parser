@@ -10,6 +10,24 @@ import sys
 def filePath(vulnerability):
     return vulnerability['location']['file']
 
+def countSeverities(vulnerabilities):
+    # Pre-define severities we expect so we don't have to sort later
+    frequencies = {
+        'Critical': 0,
+        'High': 0,
+        'Medium': 0,
+        'Low': 0,
+        'Unknown': 0
+    }
+
+    for vulnerability in vulnerabilities:
+        if vulnerability['severity'] in frequencies:
+            frequencies[vulnerability['severity']] += 1
+        else: # If we don't have a category for a severity create it here
+            frequencies[vulnerability['severity']] = 1
+
+    return frequencies
+
 parser = argparse.ArgumentParser(description='Parse a GitLab SAST report to HTML')
 parser.add_argument('files', metavar='files', nargs='+',
                     help='The files that should be converted to HTML.')
@@ -51,9 +69,9 @@ for json_file in args.files:
         for vuln in vulns:
             vulnerabilities.append(vuln.value)
 
-vulnerabilities.sort(key=filePath)
+frequencies=countSeverities(vulnerabilities)
 
 env = jinja2.Environment(loader=jinja2.FileSystemLoader('templates'))
 template = env.get_template('vulnerability_report.html')
-rendered = template.render(vulnerabilities=vulnerabilities)
+rendered = template.render(vulnerabilities=vulnerabilities, frequencies=countSeverities(vulnerabilities))
 print(rendered)
