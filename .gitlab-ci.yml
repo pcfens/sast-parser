@@ -10,22 +10,6 @@ stages:
 include:
 - template: Security/SAST.gitlab-ci.yml
 
-sast_report:
-  stage: report
-  image: registry.code.wm.edu/pcfens/sast-parser:latest
-  script:
-  - echo $CI_PROJECT_URL/-/jobs/$((CI_JOB_ID-1))/artifacts/download?file_type=sast
-  - "curl -o sast.json -H \"PRIVATE-TOKEN: $CI_JOB_TOKEN\" $CI_PROJECT_URL/-/jobs/$((CI_JOB_ID-1))/artifacts/download?file_type=sast"
-  - cat sast.json
-  - ./parse-sast.py *.json > report.html
-  dependencies:
-  - sast
-  artifacts:
-    name: SAST Report
-    expire_in: 1 week
-    paths:
-    - report.html
-
 build_release:
   rules:
   - if: $CI_COMMIT_TAG
