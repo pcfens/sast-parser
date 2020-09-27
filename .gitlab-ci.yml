@@ -14,7 +14,7 @@ sast_report:
   stage: report
   image: registry.code.wm.edu/pcfens/sast-parser:latest
   script:
-  - wget -o=bandit.json $CI_PROJECT_URL/-/jobs/artifacts/$CI_COMMIT_REF_NAME/raw/gl-sast-report.json?job=bandit-sast
+  - wget -o=bandit.json --header=\"PRIVATE-TOKEN: $CI_JOB_TOKEN\" $CI_PROJECT_URL/-/jobs/artifacts/$CI_COMMIT_REF_NAME/raw/gl-sast-report.json?job=bandit-sast
   - cat bandit.json
   - ./parse-sast.py *.json > report.html
   dependencies:
