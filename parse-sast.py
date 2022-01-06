@@ -3,6 +3,8 @@
 import argparse
 from jsonpath_ng import jsonpath
 from jsonpath_ng.ext import parse
+from distutils.version import StrictVersion
+
 import jinja2
 import json
 import sys
@@ -61,7 +63,7 @@ for json_file in args.files:
     with open(json_file) as f:
         data = json.load(f)
 
-        if float(data['version']) >= 4.0:
+        if StrictVersion(data['version']) >= StrictVersion("4.0"):
             print('We don\'t know how to parse this version of SAST report')
             sys.exit(1)
 
