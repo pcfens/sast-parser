@@ -8,6 +8,7 @@ from distutils.version import StrictVersion
 import jinja2
 import json
 import sys
+import os.path
 
 def filePath(vulnerability):
     return vulnerability['location']['file']
@@ -73,7 +74,8 @@ for json_file in args.files:
 
 frequencies=countSeverities(vulnerabilities)
 
-env = jinja2.Environment(loader=jinja2.FileSystemLoader('templates'))
+project_dir = os.path.dirname(__file__)
+env = jinja2.Environment(loader=jinja2.FileSystemLoader(os.path.join(project_dir, 'templates')))
 template = env.get_template('vulnerability_report.html')
 rendered = template.render(vulnerabilities=vulnerabilities, frequencies=countSeverities(vulnerabilities))
 print(rendered)
