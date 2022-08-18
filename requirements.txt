@@ -4,3 +4,4 @@ jsonpath-ng==1.5.3
 MarkupSafe==2.1.1
 ply==3.11
 six==1.16.0
+packaging==21.3
