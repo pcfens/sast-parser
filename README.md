@@ -1,5 +1,7 @@
 # sast-parser
 
+[![Docker](https://github.com/pcfens/sast-parser/actions/workflows/main.yml/badge.svg?branch=master)](https://github.com/pcfens/sast-parser/actions/workflows/main.yml)
+
 A simple tool to make understanding GitLab SAST reports a little bit
 easier.
 
