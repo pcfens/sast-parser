@@ -38,6 +38,9 @@ parser.add_argument('--only-severities', type=str, required=False,
                     help='A comma delimited list of the vulnerabilities to keep (defaults to all)')
 parser.add_argument('--jsonpath-filter', type=str, required=False,
                     help='Provide a custom jsonpath filter to apply to all JSON files')
+parser.add_argument('--no-verify-version', dest='verify_version', action='store_false',
+                    help='Disable verification of the report version before attempting to parse it.' )
+parser.set_defaults(verify_version=True)
 args = parser.parse_args()
 
 if args.jsonpath_filter is not None:
@@ -64,7 +67,7 @@ for json_file in args.files:
     with open(json_file) as f:
         data = json.load(f)
 
-        if Version(data['version']) >= Version("15.0"):
+        if Version(data['version']) >= Version("15.0") and args.verify_version:
             print('We don\'t know how to parse this version of SAST report')
             sys.exit(1)
 
