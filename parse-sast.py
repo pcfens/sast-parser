@@ -67,7 +67,7 @@ for json_file in args.files:
     with open(json_file) as f:
         data = json.load(f)
 
-        if Version(data['version']) >= Version("15.0") and args.verify_version:
+        if Version(data['version']) >= Version("16.0") and args.verify_version:
             print('We don\'t know how to parse this version of SAST report')
             sys.exit(1)
 
