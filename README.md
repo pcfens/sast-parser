@@ -24,6 +24,7 @@ docker build -t sast-parser .
 ```bash
 usage: parse-sast.py [-h] [--only-severities ONLY_SEVERITIES]
                      [--jsonpath-filter JSONPATH_FILTER]
+                     [--no-verify-version]
                      files [files ...]
 ```
 
