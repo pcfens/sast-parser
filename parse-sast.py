@@ -54,7 +54,7 @@ elif args.only_severities is not None:
     severities = args.only_severities.split(',')
     filters = list()
     for severity in severities:
-        filters.append("$.vulnerabilities[?(@.severity == '" + severity + "')]")
+        filters.append("($.vulnerabilities[?(@.severity == '" + severity + "')])")
     filter = ' | '.join(filters)
     jsonpath_expr = parse(filter)
 else:
