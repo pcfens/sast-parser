@@ -1,3 +1,11 @@
+.devcontainer/
+.github/
+.gitattributes
+.gitignore
+.gitlab-ci.yml
 *.json
 index.html
-.devcontainer/
+Dockerfile
+LICENSE
+NOTICE
+README.md
