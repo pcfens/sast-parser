@@ -40,7 +40,9 @@ parser.add_argument('--jsonpath-filter', type=str, required=False,
                     help='Provide a custom jsonpath filter to apply to all JSON files')
 parser.add_argument('--no-verify-version', dest='verify_version', action='store_false',
                     help='Disable verification of the report version before attempting to parse it.' )
-parser.set_defaults(verify_version=True)
+parser.add_argument('--no-print-summary', dest='print_summary', action='store_false',
+                    help='Disable output of count of severities on stderr.' )
+parser.set_defaults(verify_version=True, print_summary=True)
 args = parser.parse_args()
 
 if args.jsonpath_filter is not None:
@@ -76,6 +78,8 @@ for json_file in args.files:
             vulnerabilities.append(vuln.value)
 
 frequencies=countSeverities(vulnerabilities)
+if args.print_summary:
+    print(repr(frequencies), file=sys.stderr)
 
 project_dir = os.path.dirname(__file__)
 env = jinja2.Environment(loader=jinja2.FileSystemLoader(os.path.join(project_dir, 'templates')))
